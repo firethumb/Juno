@@ -2,7 +2,7 @@
 // Node module: loopback-example-access-control
 // This file is licensed under the Artistic License 2.0.
 // License text available at https://opensource.org/licenses/Artistic-2.0
-
+/*
 module.exports = function(app) {
   var router = app.loopback.Router();
 
@@ -50,3 +50,4 @@ module.exports = function(app) {
 
   app.use(router);
 };
+*/
