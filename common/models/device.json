@@ -1,0 +1,81 @@
+{
+  "name": "device",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "contractID": {
+      "type": "string",
+      "required": true
+    },
+    "licNo": {
+      "type": "string",
+      "required": true
+    },
+    "modelNo": {
+      "type": "string",
+      "required": true
+    },
+    "dateCreated": {
+      "type": "date"
+    },
+    "dateLMod": {
+      "type": "date"
+    },
+    "entryID": {
+      "type": "string",
+      "required": true
+    },
+    "serial": {
+      "type": "string"
+    },
+    "wanIP": {
+      "type": "string"
+    },
+    "config": {
+      "type": "object"
+    },
+    "groupID": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "licEXPDTE": {
+      "type": "date",
+      "required": true
+    },
+    "lastHB": {
+      "type": [
+        "any"
+      ]
+    },
+    "comments": {
+      "type": "string"
+    },
+    "lastconfigDTE": {
+      "type": "date"
+    },
+    "geoinfo": {
+      "type": [
+        "any"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usersdb": {
+      "type": "belongsTo",
+      "model": "usersdb",
+      "foreignKey": "deviceID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

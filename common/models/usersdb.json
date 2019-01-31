@@ -1,0 +1,57 @@
+{
+  "name": "usersdb",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "altemail": {
+      "type": "string",
+      "required": false
+    },
+    "contactNumber": {
+      "type": "string",
+      "required": true
+    },
+    "recoveryEmail": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "any",
+      "required": false
+    },
+    "accountType": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "ownerId"
+    },
+    "devices": {
+      "type": "hasMany",
+      "model": "device",
+      "foreignKey": "deviceID"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    }
+  ],
+  "methods": {}
+}
