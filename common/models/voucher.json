@@ -1,0 +1,33 @@
+{
+  "name": "voucher",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "history": {
+      "type": [
+        "any"
+      ]
+    },
+    "vbatch": {
+      "type": [
+        "any"
+      ]
+    },
+    "qstatus": {
+      "type": "any"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "device": {
+      "type": "belongsTo",
+      "model": "device",
+      "foreignKey": "devID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

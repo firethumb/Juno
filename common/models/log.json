@@ -1,0 +1,55 @@
+{
+  "name": "log",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "newrpilogs": {
+      "type": [
+        "any"
+      ]
+    },
+    "newwlclogs": {
+      "type": [
+        "any"
+      ]
+    },
+    "newntf": {
+      "type": [
+        "any"
+      ]
+    },
+    "oldrpilogs": {
+      "type": [
+        "any"
+      ]
+    },
+    "oldwlclogs": {
+      "type": [
+        "any"
+      ]
+    },
+    "oldntf": {
+      "type": [
+        "any"
+      ]
+    },
+    "genuserqueue": {
+      "type": [
+        "any"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "device": {
+      "type": "belongsTo",
+      "model": "device",
+      "foreignKey": "devID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

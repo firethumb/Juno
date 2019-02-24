@@ -1,0 +1,53 @@
+{
+  "name": "dashinfo",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "saleHist": {
+      "type": "any"
+    },
+    "customGrp": {
+      "type": "any"
+    },
+    "comments": {
+      "type": "string",
+      "default": "test saleDD"
+    },
+    "salesDD": {
+      "type": "number"
+    },
+    "salesWk": {
+      "type": [
+        "number"
+      ]
+    },
+    "salesMM": {
+      "type": [
+        "any"
+      ]
+    },
+    "topMAC": {
+      "type": [
+        "any"
+      ]
+    },
+    "customerCounts": {
+      "type": [
+        "any"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "device": {
+      "type": "belongsTo",
+      "model": "device",
+      "foreignKey": "devID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -2,6 +2,7 @@
   "name": "device",
   "base": "PersistedModel",
   "idInjection": true,
+  "forceId": false,
   "options": {
     "validateUpsert": true
   },
@@ -70,10 +71,30 @@
   },
   "validations": [],
   "relations": {
-    "usersdb": {
+    "user": {
       "type": "belongsTo",
-      "model": "usersdb",
-      "foreignKey": "deviceID"
+      "model": "user",
+      "foreignKey": "ownerId"
+    },
+    "dashinfos": {
+      "type": "hasOne",
+      "model": "dashinfo",
+      "foreignKey": "devID"
+    },
+    "logs": {
+      "type": "hasOne",
+      "model": "log",
+      "foreignKey": "devID"
+    },
+    "settings": {
+      "type": "hasOne",
+      "model": "setting",
+      "foreignKey": "devID"
+    },
+    "vouchers": {
+      "type": "hasOne",
+      "model": "voucher",
+      "foreignKey": "devID"
     }
   },
   "acls": [],

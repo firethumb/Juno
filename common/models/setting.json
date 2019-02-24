@@ -1,0 +1,46 @@
+{
+  "name": "setting",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "version": {
+      "type": "string",
+      "required": true
+    },
+    "lastmodDTE": {
+      "type": "date",
+      "required": true
+    },
+    "syscfg": {
+      "type": "object"
+    },
+    "hbcfg": {
+      "type": "any"
+    },
+    "basecfg": {
+      "type": "any"
+    },
+    "cslotcfg": {
+      "type": "any"
+    },
+    "urgentcfg": {
+      "type": "any"
+    },
+    "bootcfg": {
+      "type": "any"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "device": {
+      "type": "belongsTo",
+      "model": "device",
+      "foreignKey": "devID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
