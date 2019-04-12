@@ -5,6 +5,12 @@
       "loopback/server/models",
       "../common/models",
       "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
     ]
   },
   "User": {
@@ -21,7 +27,10 @@
   },
   "RoleMapping": {
     "dataSource": "db",
-    "public": false
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
   },
   "Role": {
     "dataSource": "db",
@@ -33,7 +42,7 @@
   },
   "team": {
     "dataSource": "db",
-    "public": false
+    "public": true
   },
   "project": {
     "dataSource": "db",
@@ -41,7 +50,7 @@
   },
   "usersdb": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "device": {
     "dataSource": "db",
@@ -49,18 +58,18 @@
   },
   "dashinfo": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "setting": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "voucher": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "log": {
     "dataSource": "db",
-    "public": true
+    "public": false
   }
 }

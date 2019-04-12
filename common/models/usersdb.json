@@ -3,13 +3,10 @@
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
-    "firstName": {
-      "type": "string",
-      "required": true
-    },
-    "lastName": {
-      "type": "string",
-      "required": true
+    "members": {
+      "type": [
+        "any"
+      ]
     },
     "altemail": {
       "type": "string",
@@ -23,7 +20,7 @@
       "type": "string",
       "required": true
     },
-    "address": {
+    "mainaddr": {
       "type": "any",
       "required": false
     },
@@ -37,15 +34,16 @@
     "user": {
       "type": "belongsTo",
       "model": "user",
-      "foreignKey": "ownerId"
-    },
-    "devices": {
-      "type": "hasMany",
-      "model": "device",
-      "foreignKey": "deviceID"
+      "foreignKey": "usersdbId"
     }
   },
   "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    },
     {
       "accessType": "*",
       "principalType": "ROLE",

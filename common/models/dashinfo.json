@@ -13,8 +13,7 @@
       "type": "any"
     },
     "comments": {
-      "type": "string",
-      "default": "test saleDD"
+      "type": "string"
     },
     "salesDD": {
       "type": "number"
@@ -48,6 +47,13 @@
       "foreignKey": "devID"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    }
+  ],
   "methods": {}
 }

@@ -2,25 +2,42 @@
   "name": "user",
   "base": "User",
   "idInjection": true,
-  "properties": {},
+  "properties": {
+    "csync": {
+      "type": "Boolean",
+      "required": false
+    }
+  },
   "validations": [],
   "relations": {
-    "projects": {
+    "usersdb": {
+      "type": "hasOne",
+      "model": "usersdb",
+      "foreignKey": "usersdbId"
+    },
+    "devices": {
       "type": "hasMany",
-      "model": "project",
+      "model": "device",
       "foreignKey": "ownerId"
     },
     "teams": {
       "type": "hasMany",
       "model": "team",
-      "foreignKey": "ownerId"
+      "foreignKey": "teammemberId"
     },
-    "usersdb": {
+    "projects": {
       "type": "hasMany",
-      "model": "usersdb",
+      "model": "project",
       "foreignKey": "ownerId"
     }
   },
-  "acls": [],
-  "methods": []
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
 }

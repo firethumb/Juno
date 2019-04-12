@@ -1,10 +1,8 @@
 'use strict';
+
 module.exports = function(server) {
-  var started = Date.now();
+  // Install a `/` route that returns server status
   var router = server.loopback.Router();
-  router.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send("{ started: started, uptime: "+(Date.now() - started) / 1000 +"s, }");
-  });
+  router.get('/', server.loopback.status());
   server.use(router);
 };

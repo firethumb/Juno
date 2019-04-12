@@ -2,10 +2,10 @@
   "name": "device",
   "base": "PersistedModel",
   "idInjection": true,
-  "forceId": false,
   "options": {
     "validateUpsert": true
   },
+  "forceId": false,
   "properties": {
     "name": {
       "type": "string",
@@ -76,6 +76,11 @@
       "model": "user",
       "foreignKey": "ownerId"
     },
+    "project": {
+      "type": "belongsTo",
+      "model": "project",
+      "foreignKey": "projectdeviceId"
+    },
     "dashinfos": {
       "type": "hasOne",
       "model": "dashinfo",
@@ -97,6 +102,25 @@
       "foreignKey": "devID"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    }
+  ],
   "methods": {}
 }
