@@ -112,7 +112,7 @@
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$admin",
+      "principalId": "admin",
       "permission": "ALLOW"
     },
     {
