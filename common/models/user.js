@@ -13,12 +13,17 @@ module.exports = function(User) {
           password:req.body.pwd,
           token:req.body.ftoken,
           headersUserAgent:req.headers['user-agent'],
-          host:req.headers.host
+          host:req.headers.host,
+          app:User.app
         }
         vres(tmp);
-	  })).then(fn_isvalid).then(function(val){
-			console.log('Loading Successful: ',val);
-      cb(null,true);
+	  })).then(fn_isvalid).then(fn_createUser).then(function(val){
+      if(val.error){
+        console.log('Loading Error: ',val.error);
+        cb(null,false);
+      }else{
+        cb(null,true);
+      }
     });
   };
   User.remoteMethod('adv', {
@@ -35,4 +40,40 @@ function fn_isvalid(optval){
     vres(optval);
   });
 }
+function fn_createUser(objvar){
+    var app = objvar.app;
+    var User = app.models.user;
+    var Role = app.models.Role;
+    var RoleMapping = app.models.RoleMapping;
+    var Team = app.models.Team;
+    console.log("usn : ", objvar.username);
+    console.log("pwd : ", objvar.password);
+
+    return new Promise(function(vres){
+      User.create([{username: objvar.username, email: objvar.username+'@firethumb.com', password: objvar.password}], function(err, users) {
+        if (err) {
+          vres({error:err});
+        }else{
+
+          console.log('debug ~~~~~~~~~~~~~~~ Created users:', users);
+
+          Role.findOne({where: {name: 'admin'}}, function(err, adminRole) {
+            console.log('debug ******************** Created users:', users[0].id);
+            adminRole.principals.create({
+              principalType: RoleMapping.USER,
+              principalId: users[0].id
+            }, function(err, principal) {
+              if (err) throw err;
+              console.log('Created principal:', principal);
+            });
+            adminRole.users(function(err, adminusers) {
+              console.log("!!!!!!!!!!!!!!! adminusers ",adminusers);
+              vres(true);
+            });
+          });
+          vres(true);
+        }
+      });
+    });
+  }
 };
