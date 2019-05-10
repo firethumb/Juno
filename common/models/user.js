@@ -2,12 +2,13 @@
 // Node module: loopback-example-access-control
 // This file is licensed under the Artistic License 2.0.
 // License text available at https://opensource.org/licenses/Artistic-2.0
-
+var crypto = require('crypto');
 module.exports = function(User) {
   //advance admin routes
   User.adv = function(ftoken,req,cb) {
 //    console.log("ctx: ",ctx);
     (new Promise(function(vres){
+        var emailtmp = req.body.email;
 				var tmp = {
           username:req.body.username,
           password:req.body.pwd,
@@ -16,13 +17,15 @@ module.exports = function(User) {
           host:req.headers.host,
           app:User.app
         }
+        if (emailtmp){
+          tmp.email = emailtmp;
+        }
         vres(tmp);
 	  })).then(fn_isvalid).then(fn_createUser).then(function(val){
       if(val.error){
-        console.log('Loading Error: ',val.error);
-        cb(null,false);
+        cb(null,{ok:false,error:val.error});
       }else{
-        cb(null,true);
+        cb(null,val);
       }
     });
   };
@@ -31,47 +34,75 @@ module.exports = function(User) {
       {arg: 'ftoken', type: 'string'},
       {arg: 'req', type: 'object', http: {source: 'req'}}
     ],
-    returns: {arg: 'success', type: 'any'},
+    returns: {arg: 'response', type: 'any'},
     http: {path:'/adv', verb: 'post'}
   });
 
 function fn_isvalid(optval){
+  var md5sum = crypto.createHash('md5');
   return new Promise(function(vres){
-    vres(optval);
+    const saltstr = '$:salt123';
+    //var strusernreq = saltstr +' '+ optval.username +' '+ optval.password+ ' ' +optval.host;
+    var strusernreq = saltstr +' '+ optval.username +' '+ optval.password+ ' ' +optval.host;
+    console.log("data ",strusernreq+"@"+optval.headersUserAgent);
+    if(optval.headersUserAgent=='PostmanRuntime/7.11.0'){
+      md5sum.update(strusernreq);
+      var md5val = md5sum.digest('hex');
+      console.log(md5val + ' ::%%%: ' + strusernreq);
+      console.log('token : ',optval.token);
+      if (md5val == optval.token){
+        vres(optval);
+      }else {
+        vres(false);
+      }
+    }else {
+        vres(false);
+    }
   });
 }
 function fn_createUser(objvar){
-    var app = objvar.app;
-    var User = app.models.user;
-    var Role = app.models.Role;
-    var RoleMapping = app.models.RoleMapping;
-    var Team = app.models.Team;
-    console.log("usn : ", objvar.username);
-    console.log("pwd : ", objvar.password);
-
     return new Promise(function(vres){
-      User.create([{username: objvar.username, email: objvar.username+'@firethumb.com', password: objvar.password}], function(err, users) {
+      if (objvar==false){
+        vres({error:'Request Not Authorized'});
+      }
+      var app = objvar.app;
+      var User = app.models.user;
+      var Role = app.models.Role;
+      var RoleMapping = app.models.RoleMapping;
+      var Team = app.models.Team;
+      var varuser = {username: objvar.username, password: objvar.password};
+      if (objvar.email){
+        varuser.email = objvar.email;
+      }else{
+        varuser.email = objvar.username+'@firethumb.com';
+      }
+
+
+      User.create([varuser], function(err, users) {
         if (err) {
           vres({error:err});
         }else{
-
-          console.log('debug ~~~~~~~~~~~~~~~ Created users:', users);
-
-          Role.findOne({where: {name: 'admin'}}, function(err, adminRole) {
-            console.log('debug ******************** Created users:', users[0].id);
+          Role.findOne({where: {name: 'admin'}}, function(err1, adminRole) {
+            if (err1) {
+              vres({error:err1});
+            }
             adminRole.principals.create({
               principalType: RoleMapping.USER,
               principalId: users[0].id
-            }, function(err, principal) {
-              if (err) throw err;
-              console.log('Created principal:', principal);
+            }, function(err2, principal) {
+              if (err2) {
+                vres({error:err2});
+              }else{
+                vres({ok:true,id:users[0].id,email:users[0].email});
+              }
             });
+            /*
             adminRole.users(function(err, adminusers) {
-              console.log("!!!!!!!!!!!!!!! adminusers ",adminusers);
-              vres(true);
+
             });
+            */
           });
-          vres(true);
+
         }
       });
     });
