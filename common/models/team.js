@@ -42,20 +42,21 @@ module.exports = function(Team) {
       return new Promise(function(vres){
         if (objvar==false){
           vres({error:'Request Not Authorized'});
+        }else{
+          var app = objvar.app;
+          var Role = app.models.Role;
+          var RoleMapping = app.models.RoleMapping;
+          var Team = app.models.Team;
+          var varteam = {name: objvar.name, teammemberId: objvar.teammemberId,details:objvar.detials};
+          console.log("debug : ",varteam);
+          Team.create([varteam], function(err, teamobj) {
+            if (err) {
+              vres({error:err});
+            }else{
+              vres(teamobj);
+            }
+          });
         }
-        var app = objvar.app;
-        var Role = app.models.Role;
-        var RoleMapping = app.models.RoleMapping;
-        var Team = app.models.Team;
-        var varteam = {name: objvar.name, teammemberId: objvar.teammemberId,details:objvar.detials};
-        console.log("debug : ",varteam);
-        Team.create([varteam], function(err, teamobj) {
-          if (err) {
-            vres({error:err});
-          }else{
-            vres(teamobj);
-          }
-        });
       });
     }
   function fn_isvalid(optval){
