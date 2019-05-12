@@ -3,13 +3,13 @@
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
-    "ownerId": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "memberId": {
-      "type": "string",
-      "required": true
+    "detials": {
+      "type": "any",
+      "required": false
     }
   },
   "validations": [],
@@ -27,6 +27,13 @@
   },
   "acls": [
     {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "partner",
+      "permission": "ALLOW",
+      "property": "fncreate"
+    },
+    {
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$everyone",
@@ -36,12 +43,6 @@
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "admin",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$owner",
       "permission": "ALLOW"
     }
   ],
