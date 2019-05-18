@@ -76,11 +76,6 @@
       "model": "user",
       "foreignKey": "ownerId"
     },
-    "project": {
-      "type": "belongsTo",
-      "model": "project",
-      "foreignKey": "projectdeviceId"
-    },
     "dashinfos": {
       "type": "hasOne",
       "model": "dashinfo",
@@ -113,6 +108,12 @@
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "partner",
       "permission": "ALLOW"
     },
     {

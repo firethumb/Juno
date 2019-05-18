@@ -23,7 +23,7 @@
     "teams": {
       "type": "hasMany",
       "model": "team",
-      "foreignKey": "teammemberId"
+      "foreignKey": "ownerId"
     },
     "projects": {
       "type": "hasMany",

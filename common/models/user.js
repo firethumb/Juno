@@ -153,7 +153,7 @@ function fn_isvalid(optval){
     //var strusernreq = saltstr +' '+ optval.username +' '+ optval.password+ ' ' +optval.host;
     var strusernreq = saltstr +' '+ optval.username +' '+ optval.password+ ' ' +optval.host;
     console.log("data ",strusernreq+"@"+optval.headersUserAgent);
-    if(optval.headersUserAgent=='PostmanRuntime/7.11.0'){
+    if(optval.headersUserAgent=='PostmanRuntime/7.13.0'){
       md5sum.update(strusernreq);
       var md5val = md5sum.digest('hex');
       console.log(md5val + ' ::%%%: ' + strusernreq);

@@ -18,11 +18,6 @@
       "type": "hasMany",
       "model": "user",
       "foreignKey": "teammemberId"
-    },
-    "projects": {
-      "type": "hasMany",
-      "model": "project",
-      "foreignKey": "teamprojectId"
     }
   },
   "acls": [
@@ -34,6 +29,20 @@
       "property": "fncreate"
     },
     {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "addmember"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "partner",
+      "permission": "ALLOW",
+      "property": "addmember"
+    },
+    {
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$everyone",
@@ -43,6 +52,12 @@
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$owner",
       "permission": "ALLOW"
     }
   ],

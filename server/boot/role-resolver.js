@@ -32,13 +32,12 @@ module.exports = function(app) {
       var Team = app.models.Team;
       Team.count({
         ownerId: project.ownerId,
-        memberId: userId
+        teammemberId: userId
       }, function(err, count) {
         if (err) {
           console.log(err);
           return cb(null, false);
         }
-
         cb(null, count > 0); // true = is a team member
       });
     });

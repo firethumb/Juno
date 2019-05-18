@@ -17,11 +17,6 @@
       "model": "user",
       "foreignKey": "ownerId"
     },
-    "team": {
-      "type": "belongsTo",
-      "model": "team",
-      "foreignKey": "teamprojectId"
-    },
     "devices": {
       "type": "hasMany",
       "model": "device",
