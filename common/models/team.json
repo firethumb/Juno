@@ -18,6 +18,11 @@
       "type": "hasMany",
       "model": "user",
       "foreignKey": "teammemberId"
+    },
+    "projects": {
+      "type": "hasMany",
+      "model": "project",
+      "foreignKey": "projId"
     }
   },
   "acls": [
@@ -61,5 +66,5 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": []
+  "methods": {}
 }

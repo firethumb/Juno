@@ -202,13 +202,7 @@ function fn_createUser(objvar){
                 vres({ok:true,id:users[0].id,email:users[0].email});
               }
             });
-            /*
-            adminRole.users(function(err, adminusers) {
-
-            });
-            */
           });
-
         }
       });
     });

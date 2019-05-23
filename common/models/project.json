@@ -21,6 +21,14 @@
       "type": "hasMany",
       "model": "device",
       "foreignKey": "projectdeviceId"
+    },
+    "team": {
+      "type": "belongsTo",
+      "model": "team",
+      "foreignKey": "teamownerId",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [
@@ -47,14 +55,7 @@
       "principalType": "ROLE",
       "principalId": "teamMember",
       "permission": "ALLOW"
-    },
-    {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "listProjects"
     }
   ],
-  "methods": []
+  "methods": {}
 }

@@ -66,8 +66,8 @@ module.exports = function(Team) {
     returns: {arg: 'response', type: 'any'},
     http: {path:'/fncreate', verb: 'post'}
   });
-
   function fn_addmember(optvar){
+//    const {ObjectId} = require('mongodb');
     return new Promise(function(vres){
       console.log("test!!@# members : ",optvar.members);
       console.log("test!!@# ownerid : ",optvar.ownerid);
@@ -75,11 +75,33 @@ module.exports = function(Team) {
         vres({error:'Request Not Authorized'});
       }else{
         var appTeamobj = optvar.app.models.Team;
-
         appTeamobj.findOne({where: {id: optvar.teamobjId}}, function(err1, teamobj) {
           if (err1) {
             vres({error:err1});
           }else if(teamobj){
+            if(teamobj.teammemberId==null){
+              newmemlist = optvar.members;
+            }else{
+              var tmpstr = teamobj.teammemberId;
+              var newmemlist = [];
+              if(typeof tmpstr=='object'){
+                newmemlist = tmpstr
+              }else{
+                tmpstr = tmpstr.replace(/'/g, '"').replace('[','').replace(']','');
+                newmemlist = tmpstr.split(',');
+              }
+              tmpstr =  optvar.members;
+              tmpstr = tmpstr.replace(/'/g, '"').replace('[','').replace(']','');
+              var memarray = tmpstr.split(',');
+              if(memarray.length>1){
+                newmemlist = newmemlist.concat(memarray);
+              }else {
+                newmemlist.push(tmpstr);
+              }
+            }
+            teamobj.updateAttributes({teammemberId: newmemlist},function(err,instobj){
+              vres(instobj);
+            });
             vres(teamobj);
           }else {
             vres("The teamobjId: " +optvar.ownerid + " was not found!");
