@@ -47,13 +47,13 @@
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$owner",
+      "principalId": "teamMember",
       "permission": "ALLOW"
     },
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "teamMember",
+      "principalId": "$owner",
       "permission": "ALLOW"
     }
   ],

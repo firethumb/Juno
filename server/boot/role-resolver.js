@@ -10,6 +10,7 @@ module.exports = function(app) {
         cb(null, false);
       });
     }
+    console.log("$$$$$$$$$$$$$$$$$4 context.modelName",context.modelName);
     // if the target model is not project
     if (context.modelName !== 'project') {
       return reject();

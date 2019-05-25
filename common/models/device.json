@@ -111,9 +111,9 @@
       "permission": "ALLOW"
     },
     {
-      "accessType": "READ",
+      "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "partner",
+      "principalId": "teamMember",
       "permission": "ALLOW"
     },
     {
